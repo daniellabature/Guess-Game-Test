@@ -131,7 +131,43 @@ public class GuessGame extends JFrame implements ActionListener{
         target = 1 + target_num.nextInt(20);
     }
     
-    
+    // New Function Created for checking the guess
+    public void checkGuess(int guess, int tries){
+	if(guess > 20){
+            JOptionPane.showMessageDialog(null,"Your number is out of the range! Please choose a number between 1 and 20.");
+            numberTxt.setText("");
+        }
+        else if(guess < target){
+            JOptionPane.showMessageDialog(null,"Too Low! Try Again.");
+            numberTxt.setText("");
+            tries--;
+            attemptsTxt.setText("" + tries);
+            if(tries == 0){
+                    JOptionPane.showMessageDialog(null,"Game Over! You have run out of tries!" + "\n"
+                                                + "Click on 'New Game' to play again.");
+                    guessBtn.setEnabled(false);
+                    clearBtn.setEnabled(false);
+                }
+        }
+        else if(guess > target){
+            JOptionPane.showMessageDialog(null,"Too High! Try Again.");
+            numberTxt.setText("");
+            tries--;
+            attemptsTxt.setText("" + tries);
+            if(tries == 0){
+                    JOptionPane.showMessageDialog(null,"Game Over! You have run out of tries!" + "\n"
+                                                + "Click on 'New Game' to play again.");
+                    guessBtn.setEnabled(false);
+                    clearBtn.setEnabled(false);
+                }
+        }
+        else if(guess == target){
+            JOptionPane.showMessageDialog(null,"Well Done! You Got It!");
+            JOptionPane.showMessageDialog(null,"Click on 'New Game' to play again.");
+            guessBtn.setEnabled(false);
+            clearBtn.setEnabled(false);
+        }
+    }
     
     public void actionPerformed(ActionEvent e){
         String buttonNr = "";
@@ -199,40 +235,7 @@ public class GuessGame extends JFrame implements ActionListener{
                 guessBtn.setEnabled(false);
                 clearBtn.setEnabled(false);
             }
-            if(guess > 20){
-                JOptionPane.showMessageDialog(null,"Your number is out of the range! Please choose a number between 1 and 20.");
-                numberTxt.setText("");
-            }
-            else if(guess < target){
-                JOptionPane.showMessageDialog(null,"Too Low! Try Again.");
-                numberTxt.setText("");
-                tries--;
-                attemptsTxt.setText("" + tries);
-                if(tries == 0){
-                    JOptionPane.showMessageDialog(null,"Game Over! You have run out of tries!" + "\n"
-                                                + "Click on 'New Game' to play again.");
-                    guessBtn.setEnabled(false);
-                    clearBtn.setEnabled(false);
-                }
-            }
-            else if(guess > target){
-                JOptionPane.showMessageDialog(null,"Too High! Try Again.");
-                numberTxt.setText("");
-                tries--;
-                attemptsTxt.setText("" + tries);
-                if(tries == 0){
-                    JOptionPane.showMessageDialog(null,"Game Over! You have run out of tries!" + "\n"
-                                                + "Click on 'New Game' to play again.");
-                    guessBtn.setEnabled(false);
-                    clearBtn.setEnabled(false);
-                }
-            }
-            else if(guess == target){
-                JOptionPane.showMessageDialog(null,"Well Done! You Got It!");
-                JOptionPane.showMessageDialog(null,"Click on 'New Game' to play again.");
-                guessBtn.setEnabled(false);
-                clearBtn.setEnabled(false);
-            }
+            checkGuess(guess, tries);
         }
     }
     
